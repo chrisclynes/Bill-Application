@@ -1,6 +1,6 @@
 <tr>
-    <td><input type="text" [value]="bill.title" (input)="bill.title = $event.target.value"></td>
-    <td><input type="number" [value]="bill.amount" (input)="bill.amount = $event.target.value">${{ bill.amount }}</td>
-    <td><input type="date" [value]="bill.dueDate | date:'yyyy-MM-dd'" (input)="bill.dueDate = $event.target.value"></td>
-    <td><button (click)="onSave()">Save</button></td>
+    <input type="text" [(ngModel)]="bill.title">
+    <input type="number" [(ngModel)]="bill.amount">
+    <input type="date" [ngModel]="bill.dueDate | date:'yyyy-MM-dd'" (ngModelChange)="onDueDateChange($event)">
+    <button (click)="onSave()">Save</button>
 </tr>

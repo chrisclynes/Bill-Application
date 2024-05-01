@@ -5,7 +5,9 @@
       <input type="text" placeholder="Bill Name" #newBillName>
       <input type="number" placeholder="Amount" #newBillAmount>
       <input type="date" placeholder="Due Date" #newBillDueDate>
-      <button class="add-button" (click)="add(newBillName.value, newBillAmount.value, newBillDueDate.value)">+</button>
+      <br />
+      <input type="text" placeholder="Link to Bill" #newBillUrl>
+      <button class="add-button" (click)="add(newBillName.value, newBillUrl.value, newBillAmount.value, newBillDueDate.value)">Add</button>
     </div>
     <table>
       <thead>
@@ -17,20 +19,20 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let bill of bills; let i = index" [class.table-even-row]="i%2==0" [class.table-odd-row]="i%2">
-          <ng-container *ngIf="!bill.isEditing; else editRow">
-            <td>
-              <pre [class.bill-is-paid]="bill.isPaid">{{ bill.title }}</pre>
-            </td>
+        <tr *ngFor="let bill of bills; let i = index" [class.table-even-row]="i%2==0" [class.table-odd-row]="i%2!=0">
+          <ng-container *ngIf="!bill.isEditing; else editTemplate">
+            <td><a [href]="bill.billUrl" target="_blank" [class.bill-is-paid]="bill.isPaid">{{ bill.title }}</a></td>
             <td>${{ bill.amount }}</td>
             <td>{{ bill.dueDate | date: 'shortDate' }}</td>
             <td>
-              <button class="remove-button" (click)="remove(bill)">X</button>
+              <button class="remove-button" (click)="remove(bill)">Remove</button>
               <button class="edit-button" (click)="edit(bill)">Edit</button>
               <button class="done-button" (click)="markAsPaid(bill)">Pay</button>
             </td>
           </ng-container>
-          <app-edit-row [bill]="bill" (save)="save($event)"></app-edit-row>
+          <ng-template #editTemplate>
+            <app-edit-row [bill]="bill" (save)="saveBill(bill)"></app-edit-row>
+          </ng-template>
         </tr>
       </tbody>
       <tfoot>
@@ -48,6 +50,5 @@
         </tr>
       </tfoot>
     </table>
-    
   </div>
 </div>

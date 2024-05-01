@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
 import {CommonModule} from '@angular/common';
 import { EditRowComponent } from './components/edit-row/edit-row.component';
@@ -8,17 +9,17 @@ import { Bill } from './models/bill/bill.model';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,CommonModule,EditRowComponent],
+  imports: [RouterOutlet,CommonModule,EditRowComponent,FormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
   title = 'My Bills';
   bills: Bill[] = [
-    new Bill('Car Bill', 348.99, new Date(2024, 3, 15)),
-    new Bill('Subscription Bill', 27.50, new Date(2024, 3, 20)),
-    new Bill('Credit Card bill', 210.00, new Date(2024, 3, 25)),
-    new Bill('Car Insurance', 142.57, new Date(2024, 3, 30)),
+    new Bill('Car Bill', '', 348.99, new Date(2024, 3, 15)),
+    new Bill('Subscription Bill', '',  27.50, new Date(2024, 3, 20)),
+    new Bill('Credit Card bill', '',  210.00, new Date(2024, 3, 25)),
+    new Bill('Car Insurance', '', 142.57, new Date(2024, 3, 30)),
   ];
 
   totalAmountPaid: number = 0;
@@ -28,11 +29,19 @@ export class AppComponent {
     this.updateTotalAmounts();
   }
 
-  add(newBillTitle: string, newBillAmount: string, newBillDueDate: string) {
+  add(newBillTitle: string, newBillUrl: string, newBillAmount: string, newBillDueDate: string) {
     const amount = parseFloat(newBillAmount);
     const dueDate = new Date(newBillDueDate);
-    this.bills.push(new Bill(newBillTitle, amount, dueDate));
+    this.bills.push(new Bill(newBillTitle, newBillUrl, amount, dueDate));
     this.updateTotalAmounts(); // Update totals after adding a new bill
+    
+    // Reset fields
+    console.log('clear fields')
+    newBillTitle = '';
+    newBillUrl = '';
+    newBillAmount = '';
+    newBillDueDate = '';
+  
   }
 
   remove(existingBill: Bill) {
@@ -48,7 +57,7 @@ export class AppComponent {
     bill.isEditing = true; // Set editing flag to true
   }
 
-  save(bill: Bill) {
+  saveBill(bill: Bill) {
     bill.isEditing = false;
 
     this.updateTotalAmounts(); // Update totals after saving changes
