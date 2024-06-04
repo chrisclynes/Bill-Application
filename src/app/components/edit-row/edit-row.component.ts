@@ -9,7 +9,7 @@ import { DatePipe, CommonModule } from '@angular/common';
   imports: [FormsModule, CommonModule], // Include FormsModule here
   templateUrl: './edit-row.component.html',
   styleUrls: ['./edit-row.component.css'],
-  providers: [DatePipe]
+  providers: [DatePipe],
 })
 export class EditRowComponent {
   @Input() bill: Bill = new Bill('', '', 0, new Date()); // Default initialization
@@ -33,6 +33,9 @@ export class EditRowComponent {
   }
   onSave() {
     this.save.emit(this.bill);
+    this.bill.isEditing = false;
+  }
+  onCancel() {
     this.bill.isEditing = false;
   }
 }

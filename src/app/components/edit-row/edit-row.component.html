@@ -1,6 +1,13 @@
-<tr>
-    <input type="text" [(ngModel)]="bill.title">
-    <input type="number" [(ngModel)]="bill.amount">
-    <input type="date" [ngModel]="bill.dueDate | date:'yyyy-MM-dd'" (ngModelChange)="onDueDateChange($event)">
-    <button (click)="onSave()">Save</button>
-</tr>
+<div class="input-group-form">
+    <div class="inline-inputs">
+        <input type="text" [(ngModel)]="bill.title" placeholder="Bill Name">
+        <input type="number" [(ngModel)]="bill.amount" placeholder="Amount">
+        <input type="date" [ngModel]="bill.dueDate | date:'yyyy-MM-dd'" (ngModelChange)="onDueDateChange($event)">
+    </div>
+    <input type="text" [(ngModel)]="bill.billUrl" placeholder="Link to Bill">
+    <div class="table-option-buttons">
+        <button class="save-button" (click)="onSave()">Save</button>
+        <button class="cancel-button" (click)="onCancel()">Cancel</button>
+    </div>
+</div>
+  

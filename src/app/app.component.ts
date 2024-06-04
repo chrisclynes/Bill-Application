@@ -16,10 +16,10 @@ import { Bill } from './models/bill/bill.model';
 export class AppComponent {
   title = 'My Bills';
   bills: Bill[] = [
-    new Bill('Car Bill', '', 348.99, new Date(2024, 3, 15)),
-    new Bill('Subscription Bill', '',  27.50, new Date(2024, 3, 20)),
-    new Bill('Credit Card bill', '',  210.00, new Date(2024, 3, 25)),
-    new Bill('Car Insurance', '', 142.57, new Date(2024, 3, 30)),
+    new Bill('Car Bill', 'www.google.com', 348.99, new Date(2024, 3, 15)),
+    new Bill('Subscription Bill', 'www.netflix.com',  27.50, new Date(2024, 3, 20)),
+    new Bill('Credit Card bill', 'www.chase.com',  210.00, new Date(2024, 3, 25)),
+    new Bill('Car Insurance', 'www.aaa.com', 142.57, new Date(2024, 3, 30)),
   ];
 
   totalAmountPaid: number = 0;

@@ -1,14 +1,6 @@
 <div class="container center-items">
   <div class="my-bills-list center-items">
     <h2>{{title}}</h2>
-    <div class="input-group-form">
-      <input type="text" placeholder="Bill Name" #newBillName>
-      <input type="number" placeholder="Amount" #newBillAmount>
-      <input type="date" placeholder="Due Date" #newBillDueDate>
-      <br />
-      <input type="text" placeholder="Link to Bill" #newBillUrl>
-      <button class="add-button" (click)="add(newBillName.value, newBillUrl.value, newBillAmount.value, newBillDueDate.value)">Add</button>
-    </div>
     <table>
       <thead>
         <tr>
@@ -25,13 +17,17 @@
             <td>${{ bill.amount }}</td>
             <td>{{ bill.dueDate | date: 'shortDate' }}</td>
             <td>
-              <button class="remove-button" (click)="remove(bill)">Remove</button>
-              <button class="edit-button" (click)="edit(bill)">Edit</button>
-              <button class="done-button" (click)="markAsPaid(bill)">Pay</button>
+              <div class="table-option-buttons">
+                <button class="remove-button" (click)="remove(bill)">Remove</button>
+                <button class="edit-button" (click)="edit(bill)">Edit</button>
+                <button class="done-button" (click)="markAsPaid(bill)">Pay</button>
+              </div>
             </td>
           </ng-container>
           <ng-template #editTemplate>
-            <app-edit-row [bill]="bill" (save)="saveBill(bill)"></app-edit-row>
+            <td colspan="4">
+              <app-edit-row [bill]="bill" (save)="saveBill(bill)"></app-edit-row>
+            </td>
           </ng-template>
         </tr>
       </tbody>
@@ -50,5 +46,14 @@
         </tr>
       </tfoot>
     </table>
+    <div class="input-group-form">
+      <div class="inline-inputs">
+        <input type="text" placeholder="Bill Name" #newBillName>
+        <input type="number" placeholder="Amount" #newBillAmount>
+        <input type="date" placeholder="Due Date" #newBillDueDate>
+      </div>
+      <input type="text" placeholder="Link to Bill" #newBillUrl>
+      <button class="add-button" (click)="add(newBillName.value, newBillUrl.value, newBillAmount.value, newBillDueDate.value)">Add</button>
+    </div>
   </div>
 </div>
