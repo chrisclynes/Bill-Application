@@ -1,62 +1,7 @@
-:host {
-    --borders: #151515;
-    --pri-color: #117d00;
-    --radius: 0.35rem;
-    --margin: 0.5rem;
-    --button-padding: 0.5rem 1rem;
-    --input-height: 2.5rem;
-    --table-padding: 0.5rem;
-    box-sizing: border-box;
-}
-
-*, *:before, *:after {
-    box-sizing: inherit;
-}
-
-.inline-inputs input {
-    flex: 1;
-    padding: 0.5rem;
-    height: var(--input-height);
-    border-radius: var(--radius);
-    border: 1px solid var(--borders);
-    box-sizing: border-box;
-}
-
-.inline-inputs {
-    display: flex;
-    gap: var(--margin);
-}
-
-.input-group-form {
-    display: flex;
-    flex-direction: column;
-    gap: var(--margin);
-}
-
-input {
-    width: 100%;
-    padding: 0.5rem;
-    height: var(--input-height);
-    border-radius: var(--radius);
-    border: 1px solid var(--borders);
-    box-sizing: border-box;
-}
-
 .table-option-buttons {
     display: inline-flex;
     gap: 0.4rem;
     justify-content: center;
-}
-
-button {
-    padding: var(--button-padding);
-    border: none;
-    border-radius: var(--radius);
-    cursor: pointer;
-    color: #fff;
-    margin-top: var(--margin);
-    width: 100%;
-    height: var(--input-height);
 }
 
 .save-button {
@@ -65,8 +10,4 @@ button {
 
 .cancel-button {
     background-color: var(--warning-color);
-}
-
-button:hover {
-    opacity: 0.8;
 }

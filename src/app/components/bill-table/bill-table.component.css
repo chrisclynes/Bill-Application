@@ -1,0 +1,78 @@
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: var(--table-spacing);
+}
+
+th, td {
+    padding: var(--table-padding);
+    border: 1px solid var(--borders);
+    text-align: left;
+}
+
+th {
+    background-color: var(--pri-color);
+    color: var(--white-color);
+    text-align: center;
+}
+
+.table-even-row {
+    background-color: var(--table-even);
+}
+
+.table-odd-row {
+    background-color: var(--table-odd);
+}
+
+.bill-is-paid {
+    text-decoration: line-through;
+}
+
+.table-option-buttons {
+    display: inline-flex;
+    gap: 0.4rem;
+    justify-content: center;
+}
+
+.remove-button {
+    background-color: var(--danger-color);
+}
+
+.edit-button {
+    background-color: var(--warning-color);
+}
+
+.done-button {
+    background-color: var(--pri-color);
+}
+
+a {
+    color: var(--pri-color);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    color: var(--link-hover-bg);
+}
+
+.totals-wrapper {
+    margin: 2rem;
+    display: flex;
+    gap: var(--margin);
+    flex-direction: column;
+}
+
+.totals-wrapper span {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+.totals-wrapper span:first-child {
+    margin-right: 1rem;
+}
+
+span.total-text {
+    color: var(--pri-color);
+    font-size: 25px;
+}

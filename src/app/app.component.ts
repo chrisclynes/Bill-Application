@@ -1,24 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
-import {CommonModule} from '@angular/common';
-import { EditRowComponent } from './components/edit-row/edit-row.component';
+import { CommonModule } from '@angular/common';
+import { BillTableComponent } from './components/bill-table/bill-table.component';
 import { Bill } from './models/bill/bill.model';
-
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,CommonModule,EditRowComponent,FormsModule],
+  imports: [RouterOutlet, CommonModule, BillTableComponent, FormsModule],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
   title = 'My Bills';
   bills: Bill[] = [
     new Bill('Car Bill', 'www.google.com', 348.99, new Date(2024, 3, 15)),
-    new Bill('Subscription Bill', 'www.netflix.com',  27.50, new Date(2024, 3, 20)),
-    new Bill('Credit Card bill', 'www.chase.com',  210.00, new Date(2024, 3, 25)),
+    new Bill('Subscription Bill', 'www.netflix.com', 27.50, new Date(2024, 3, 20)),
+    new Bill('Credit Card bill', 'www.chase.com', 210.00, new Date(2024, 3, 25)),
     new Bill('Car Insurance', 'www.aaa.com', 142.57, new Date(2024, 3, 30)),
   ];
 
@@ -41,7 +40,6 @@ export class AppComponent {
     newBillUrl = '';
     newBillAmount = '';
     newBillDueDate = '';
-  
   }
 
   remove(existingBill: Bill) {
@@ -54,10 +52,12 @@ export class AppComponent {
   }
 
   edit(bill: Bill) {
+    console.log('parent edit')
     bill.isEditing = true; // Set editing flag to true
   }
 
   saveBill(bill: Bill) {
+    console.log('parent save')
     bill.isEditing = false;
 
     this.updateTotalAmounts(); // Update totals after saving changes

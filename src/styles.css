@@ -1,1 +1,92 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
+
+:root {
+    --borders: #151515;
+    --pri-color: #117d00;
+    --secondary-color: #62d51f;
+    --accent-color: #fbcc48;
+    --table-even: #e0ffcfe6;
+    --table-odd: #98d279e6;
+    --danger-color: #d9534f;
+    --warning-color: #f0ad4e;
+    --white-color: #fff;
+    --link-hover-bg: #003300;
+    --radius: 0.35rem;
+    --padding: 1rem;
+    --margin: 0.5rem;
+    --button-padding: 0.5rem 1rem;
+    --button-margin: 0.25rem;
+    --table-padding: 0.5rem;
+    --table-spacing: 0.75rem;
+    --input-height: 2.5rem;
+    box-sizing: border-box;
+    --font-family: 'Open Sans', sans-serif;
+}
+
+html {
+    box-sizing: border-box;
+    font-family: var(--font-family);
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+.center-items {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    margin: 0;
+    padding: var(--padding);
+    width: 100%;
+    height: 100%;
+}
+
+.input-group-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--margin);
+}
+
+.inline-inputs {
+    display: flex;
+    gap: var(--margin);
+}
+
+.inline-inputs input {
+    flex: 1;
+    padding: 0.5rem;
+    height: var(--input-height);
+    border-radius: var(--radius);
+    border: 1px solid var(--borders);
+    box-sizing: border-box;
+    font-family: var(--font-family);
+}
+
+.input-group-form input[type="text"],
+.input-group-form button {
+    width: 100%;
+    height: var(--input-height);
+    border-radius: var(--radius);
+    border: 1px solid var(--borders);
+    font-family: var(--font-family);
+}
+
+button {
+    padding: var(--button-padding);
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    color: var(--white-color);
+    font-family: var(--font-family);
+    font-size: 1rem;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+

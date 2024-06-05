@@ -32,7 +32,7 @@ export class EditRowComponent {
     this.bill.dueDate = new Date(value); // Convert the input string to a Date object
   }
   onSave() {
-    this.save.emit(this.bill);
+    this.save.emit(this.bill); //sends event up to parent
     this.bill.isEditing = false;
   }
   onCancel() {

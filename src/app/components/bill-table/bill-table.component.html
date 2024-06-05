@@ -1,0 +1,44 @@
+<h2>{{title}}</h2>
+<div class="table-wrapper">
+  <table>
+    <thead>
+      <tr>
+        <th>Bill Name</th>
+        <th>Amount</th>
+        <th>Due Date</th>
+        <th>Options</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let bill of bills; let i = index" [class.table-even-row]="i%2==0" [class.table-odd-row]="i%2!=0">
+        <ng-container *ngIf="!bill.isEditing; else editTemplate">
+          <td><a [href]="bill.billUrl" target="_blank" [class.bill-is-paid]="bill.isPaid">{{ bill.title }}</a></td>
+          <td>${{ bill.amount }}</td>
+          <td>{{ bill.dueDate | date: 'shortDate' }}</td>
+          <td>
+            <div class="table-option-buttons">
+              <button class="remove-button" (click)="remove(bill)">Remove</button>
+              <button class="edit-button" (click)="edit(bill)">Edit</button>
+              <button class="done-button" (click)="markAsPaid(bill)">Pay</button>
+            </div>
+          </td>
+        </ng-container>
+        <ng-template #editTemplate>
+          <td colspan="4">
+            <app-edit-row [bill]="bill" (save)="saveBillHandler(bill)"></app-edit-row>
+          </td>
+        </ng-template>
+      </tr>
+    </tbody>
+  </table>
+  <div class="totals-wrapper">
+      <div class="total-paid">
+        <span>Total Amount Paid This Month:</span>
+        <span class="total-text">${{ totalAmountPaid }}</span>
+      </div>
+      <div class="total-remaining">
+        <span>Total Amount Remaining This Month:</span>
+        <span class="total-text">${{ totalAmountRemaining }}</span>
+      </div>
+  </div>
+</div>

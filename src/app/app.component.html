@@ -1,58 +1,24 @@
 <div class="container center-items">
   <div class="my-bills-list center-items">
-    <h2>{{title}}</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Bill Name</th>
-          <th>Amount</th>
-          <th>Due Date</th>
-          <th>Options</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let bill of bills; let i = index" [class.table-even-row]="i%2==0" [class.table-odd-row]="i%2!=0">
-          <ng-container *ngIf="!bill.isEditing; else editTemplate">
-            <td><a [href]="bill.billUrl" target="_blank" [class.bill-is-paid]="bill.isPaid">{{ bill.title }}</a></td>
-            <td>${{ bill.amount }}</td>
-            <td>{{ bill.dueDate | date: 'shortDate' }}</td>
-            <td>
-              <div class="table-option-buttons">
-                <button class="remove-button" (click)="remove(bill)">Remove</button>
-                <button class="edit-button" (click)="edit(bill)">Edit</button>
-                <button class="done-button" (click)="markAsPaid(bill)">Pay</button>
-              </div>
-            </td>
-          </ng-container>
-          <ng-template #editTemplate>
-            <td colspan="4">
-              <app-edit-row [bill]="bill" (save)="saveBill(bill)"></app-edit-row>
-            </td>
-          </ng-template>
-        </tr>
-      </tbody>
-      <tfoot>
-        <tr>
-          <td>Total Amount Paid This Month:</td>
-          <td>${{ totalAmountPaid }}</td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>Total Amount Remaining This Month:</td>
-          <td>${{ totalAmountRemaining }}</td>
-          <td></td>
-          <td></td>
-        </tr>
-      </tfoot>
-    </table>
+    <app-bill-table 
+      [title]="title" 
+      [bills]="bills" 
+      [totalAmountPaid]="totalAmountPaid" 
+      [totalAmountRemaining]="totalAmountRemaining"
+      (removeBill)="remove($event)"
+      (editBill)="edit($event)"
+      (saveBill)="saveBill($event)"
+      (markBillAsPaid)="markAsPaid($event)">
+    </app-bill-table>
     <div class="input-group-form">
       <div class="inline-inputs">
         <input type="text" placeholder="Bill Name" #newBillName>
         <input type="number" placeholder="Amount" #newBillAmount>
         <input type="date" placeholder="Due Date" #newBillDueDate>
       </div>
-      <input type="text" placeholder="Link to Bill" #newBillUrl>
+      <div class="inline-inputs">
+        <input type="text" placeholder="Link to Bill" #newBillUrl>
+      </div>
       <button class="add-button" (click)="add(newBillName.value, newBillUrl.value, newBillAmount.value, newBillDueDate.value)">Add</button>
     </div>
   </div>
