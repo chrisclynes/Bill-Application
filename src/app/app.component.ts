@@ -4,11 +4,12 @@ import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { BillTableComponent } from './components/bill-table/bill-table.component';
 import { Bill } from './models/bill/bill.model';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, BillTableComponent, FormsModule],
+  imports: [RouterOutlet, CommonModule, BillTableComponent, FormsModule, MatDialogModule],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
@@ -35,7 +36,7 @@ export class AppComponent {
     this.updateTotalAmounts(); // Update totals after adding a new bill
     
     // Reset fields
-    console.log('clear fields')
+    console.log('clear fields');
     newBillTitle = '';
     newBillUrl = '';
     newBillAmount = '';
@@ -52,14 +53,13 @@ export class AppComponent {
   }
 
   edit(bill: Bill) {
-    console.log('parent edit')
+    console.log('parent edit');
     bill.isEditing = true; // Set editing flag to true
   }
 
   saveBill(bill: Bill) {
-    console.log('parent save')
+    console.log('parent save');
     bill.isEditing = false;
-
     this.updateTotalAmounts(); // Update totals after saving changes
   }
 
