@@ -1,46 +1,72 @@
-import { Component, ViewEncapsulation } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { RouterOutlet } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { BillTableComponent } from './components/bill-table/bill-table.component';
+import { Component, ViewChild } from '@angular/core';
+import { NgForm, FormsModule } from '@angular/forms'; // Import NgForm and FormsModule
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { Bill } from './models/bill/bill.model';
-import { MatDialogModule } from '@angular/material/dialog';
+import { ValidationDialogComponent } from './components/validation-dialog/validation-dialog.component';
+import { CommonModule } from '@angular/common';
+import { RouterOutlet } from '@angular/router';
+import { BillTableComponent } from './components/bill-table/bill-table.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, BillTableComponent, FormsModule, MatDialogModule],
+  imports: [RouterOutlet, CommonModule, BillTableComponent, FormsModule, MatDialogModule, ValidationDialogComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
   title = 'My Bills';
   bills: Bill[] = [
-    new Bill('Car Bill', 'www.google.com', 348.99, new Date(2024, 3, 15)),
-    new Bill('Subscription Bill', 'www.netflix.com', 27.50, new Date(2024, 3, 20)),
-    new Bill('Credit Card bill', 'www.chase.com', 210.00, new Date(2024, 3, 25)),
-    new Bill('Car Insurance', 'www.aaa.com', 142.57, new Date(2024, 3, 30)),
+    new Bill('Car Bill', 'http://www.google.com', 348.99, new Date(2024, 3, 15)),
+    new Bill('Subscription Bill', 'http://www.netflix.com', 27.50, new Date(2024, 3, 20)),
+    new Bill('Credit Card bill', 'http://www.chase.com', 210.00, new Date(2024, 3, 25)),
+    new Bill('Car Insurance', 'http://www.aaa.com', 142.57, new Date(2024, 3, 30)),
   ];
 
   totalAmountPaid: number = 0;
   totalAmountRemaining: number = 0;
 
-  constructor() {
+  @ViewChild('billForm') billForm!: NgForm;
+
+  constructor(private dialog: MatDialog) {
     this.updateTotalAmounts();
   }
 
   add(newBillTitle: string, newBillUrl: string, newBillAmount: string, newBillDueDate: string) {
+    const errors = this.getFormValidationErrors();
+    if (errors.length > 0) {
+      this.dialog.open(ValidationDialogComponent, {
+        data: { errors },
+      });
+      return;
+    }
+
     const amount = parseFloat(newBillAmount);
     const dueDate = new Date(newBillDueDate);
     this.bills.push(new Bill(newBillTitle, newBillUrl, amount, dueDate));
     this.updateTotalAmounts(); // Update totals after adding a new bill
     
-    // Reset fields
-    console.log('clear fields');
-    newBillTitle = '';
-    newBillUrl = '';
-    newBillAmount = '';
-    newBillDueDate = '';
+    // Reset the form
+    this.billForm.resetForm();
+  }
+
+  getFormValidationErrors(): string[] {
+    const errors: string[] = [];
+
+    if (!this.billForm.form.get('newBillName')?.valid) {
+      errors.push('Bill name is required');
+    }
+    if (!this.billForm.form.get('newBillAmount')?.valid) {
+      errors.push('Amount is required and must be a valid number');
+    }
+    if (!this.billForm.form.get('newBillDueDate')?.valid) {
+      errors.push('Due date is required');
+    }
+    if (!this.billForm.form.get('newBillUrl')?.valid) {
+      errors.push('Valid URL is required');
+    }
+
+    return errors;
   }
 
   remove(existingBill: Bill) {
@@ -53,12 +79,10 @@ export class AppComponent {
   }
 
   edit(bill: Bill) {
-    console.log('parent edit');
     bill.isEditing = true; // Set editing flag to true
   }
 
   saveBill(bill: Bill) {
-    console.log('parent save');
     bill.isEditing = false;
     this.updateTotalAmounts(); // Update totals after saving changes
   }

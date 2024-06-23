@@ -44,7 +44,8 @@ export class BillTableComponent {
   openEditModal(bill: Bill): void {
     const dialogRef = this.dialog.open(EditRowComponent, {
       width: '400px',
-      data: { bill }
+      data: { bill },
+      panelClass: 'blur-dialog-overlay',
     });
 
     dialogRef.componentInstance.save.subscribe(updatedBill => {
