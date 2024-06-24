@@ -1,6 +1,9 @@
+<h2 mat-dialog-title>Edit Bill</h2>
 <div class="input-group-form">
     <div class="inline-inputs">
       <input type="text" [(ngModel)]="bill.title" placeholder="Bill Name">
+    </div>
+    <div class="inline-inputs">
       <input type="number" [(ngModel)]="bill.amount" placeholder="Amount">
       <input type="date" [ngModel]="bill.dueDate | date:'yyyy-MM-dd'" (ngModelChange)="onDueDateChange($event)">
     </div>
