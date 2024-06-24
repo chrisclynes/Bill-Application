@@ -3,6 +3,7 @@ import { NgForm, FormsModule } from '@angular/forms'; // Import NgForm and Forms
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { Bill } from './models/bill/bill.model';
 import { ValidationDialogComponent } from './components/validation-dialog/validation-dialog.component';
+import { AddBillFormComponent } from './components/add-bill/add-bill.component';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { BillTableComponent } from './components/bill-table/bill-table.component';
@@ -10,7 +11,7 @@ import { BillTableComponent } from './components/bill-table/bill-table.component
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, BillTableComponent, FormsModule, MatDialogModule, ValidationDialogComponent],
+  imports: [RouterOutlet, CommonModule, BillTableComponent, FormsModule, MatDialogModule, ValidationDialogComponent, AddBillFormComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
@@ -28,45 +29,33 @@ export class AppComponent {
 
   @ViewChild('billForm') billForm!: NgForm;
 
+  showAddForm = false;
+
   constructor(private dialog: MatDialog) {
     this.updateTotalAmounts();
   }
 
-  add(newBillTitle: string, newBillUrl: string, newBillAmount: string, newBillDueDate: string) {
-    const errors = this.getFormValidationErrors();
-    if (errors.length > 0) {
-      this.dialog.open(ValidationDialogComponent, {
-        data: { errors },
-      });
-      return;
-    }
+  openAddBillForm() {
+    const dialogRef = this.dialog.open(AddBillFormComponent, {
+      width: '400px',
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      if (result?.errors) {
+        this.dialog.open(ValidationDialogComponent, {
+          data: { errors: result.errors },
+        });
+      } else if (result) {
+        this.add(result.newBillName, result.newBillUrl, result.newBillAmount, result.newBillDueDate);
+      }
+    });
+  }
+
+  add(newBillTitle: string, newBillUrl: string, newBillAmount: string, newBillDueDate: string) {
     const amount = parseFloat(newBillAmount);
     const dueDate = new Date(newBillDueDate);
     this.bills.push(new Bill(newBillTitle, newBillUrl, amount, dueDate));
     this.updateTotalAmounts(); // Update totals after adding a new bill
-    
-    // Reset the form
-    this.billForm.resetForm();
-  }
-
-  getFormValidationErrors(): string[] {
-    const errors: string[] = [];
-
-    if (!this.billForm.form.get('newBillName')?.valid) {
-      errors.push('Bill name is required');
-    }
-    if (!this.billForm.form.get('newBillAmount')?.valid) {
-      errors.push('Amount is required and must be a valid number');
-    }
-    if (!this.billForm.form.get('newBillDueDate')?.valid) {
-      errors.push('Due date is required');
-    }
-    if (!this.billForm.form.get('newBillUrl')?.valid) {
-      errors.push('Valid URL is required');
-    }
-
-    return errors;
   }
 
   remove(existingBill: Bill) {

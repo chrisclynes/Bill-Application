@@ -10,18 +10,6 @@
       (saveBill)="saveBill($event)"
       (markBillAsPaid)="markAsPaid($event)">
     </app-bill-table>
-    <form class="input-group-form" #billForm="ngForm" (ngSubmit)="add(newBillName.value, newBillUrl.value, newBillAmount.value, newBillDueDate.value)">
-      <div class="inline-inputs">
-        <input type="text" placeholder="Bill Name" #newBillName="ngModel" name="newBillName" required ngModel>
-      </div>
-      <div class="inline-inputs">
-        <input type="number" placeholder="Amount" #newBillAmount="ngModel" name="newBillAmount" required pattern="^\d+(\.\d{1,2})?$" ngModel>
-        <input type="date" placeholder="Due Date" #newBillDueDate="ngModel" name="newBillDueDate" required ngModel>
-      </div>
-      <div class="inline-inputs">
-        <input type="url" placeholder="Link to Bill" #newBillUrl="ngModel" name="newBillUrl" required ngModel>
-      </div>
-      <button class="add-button" type="submit">Add</button>
-    </form>
+    <button class="add-button" type="button" (click)="openAddBillForm()">Add</button>
   </div>
 </div>

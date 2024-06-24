@@ -1,0 +1,13 @@
+.table-option-buttons {
+    display: inline-flex;
+    gap: 0.4rem;
+    justify-content: center;
+}
+
+.save-button {
+    background-color: var(--pri-color);
+}
+
+.cancel-button {
+    background-color: var(--warning-color);
+}
