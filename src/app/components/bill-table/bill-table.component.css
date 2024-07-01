@@ -30,6 +30,17 @@ th {
 
 .bill-is-paid {
     text-decoration: line-through;
+    text-decoration-thickness: 3px;
+    background-color: #98d279e6;
+    text-decoration-color: var(--pri-color);
+}
+
+.bill-is-due {
+    background-color: var(--due-color);
+}
+
+.bill-is-past-due {
+    background-color: var(--past-due-color);
 }
 
 .table-option-buttons {

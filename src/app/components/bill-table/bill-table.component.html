@@ -10,9 +10,14 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let bill of bills; let i = index" [class.table-even-row]="i%2==0" [class.table-odd-row]="i%2!=0">
+      <tr *ngFor="let bill of bills; let i = index" 
+          [class.bill-is-paid]="bill.isPaid" 
+          [class.bill-is-due]="bill.isDue" 
+          [class.bill-is-past-due]="bill.isPastDue" 
+          [class.table-even-row]="i % 2 === 0" 
+          [class.table-odd-row]="i % 2 !== 0">
         <ng-container *ngIf="!bill.isEditing; else editTemplate">
-          <td><a [href]="bill.billUrl" target="_blank" [class.bill-is-paid]="bill.isPaid">{{ bill.title }}</a></td>
+          <td><a [href]="bill.billUrl" target="_blank">{{ bill.title }}</a></td>
           <td>${{ bill.amount }}</td>
           <td>{{ bill.dueDate | date: 'shortDate' }}</td>
           <td>

@@ -4,6 +4,8 @@ export class Bill {
     amount: number;
     dueDate: Date;
     isPaid: boolean;
+    isDue: boolean;
+    isPastDue: boolean;
     isEditing: boolean;
   
     constructor(title: string, billUrl: string, amount: number, dueDate: Date) {
@@ -12,6 +14,8 @@ export class Bill {
       this.amount = amount;
       this.dueDate = dueDate;
       this.isPaid = false;
+      this.isDue = false;
+      this.isPastDue = false;
       this.isEditing = false;
     }
   }
